@@ -1,96 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choose Your Own Adventure</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f4; }
+        .story { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 2px 2px 10px gray; }
         .choice { margin-top: 20px; cursor: pointer; color: blue; text-decoration: underline; }
     </style>
 </head>
 <body>
-    <h1>Choose Your Own Adventure</h1>
-    <div id="story"></div>
+    <div class="story" id="story"></div>
+
     <script>
-        const story = {
+        const storyData = {
             start: {
-                text: "You find an old, dusty book in your school library. As you flip through its pages, a bright light surrounds you. Suddenly, you are no longer in the library—you've been transported to a mystical world! You find yourself standing in a vast forest, with two paths ahead. What will you do?",
-                choices: [
-                    { text: "Take the left path towards the glowing trees.", next: "glowing_trees" },
-                    { text: "Take the right path leading to a dark cave.", next: "dark_cave" }
-                ]
+                text: `You are in your school library, flipping through an old book with a mysterious golden cover. As you turn the pages, the words seem to shimmer and shift. Suddenly, a bright light flashes, and you feel yourself being pulled into the book!<br><br>
+                When the light fades, you find yourself standing in a strange land. Towering trees with glowing leaves surround you, and in the distance, you see a castle floating in the sky. A talking fox appears and says, "You must make a choice, traveler. The book has brought you here for a reason."`,
+                choices: {
+                    "Follow the fox": "followFox",
+                    "Head toward the castle": "castlePath"
+                }
             },
-            glowing_trees: {
-                text: "As you walk toward the glowing trees, you notice the air is shimmering with magic. Tiny fairy-like creatures dart between the branches. One of them flies up to you and whispers, 'The book has chosen you! Seek the lost crystal in the Enchanted River.' You spot a bridge leading across the river and a boat tied to the shore. How will you cross?",
-                choices: [
-                    { text: "Walk across the bridge.", next: "bridge_crossing" },
-                    { text: "Take the boat.", next: "boat_ride" }
-                ]
+            followFox: {
+                text: `You decide to follow the fox deeper into the glowing forest. As you walk, you notice that the trees whisper secrets in the wind. The fox leads you to an ancient stone archway covered in glowing symbols.<br><br>
+                "This is the Gateway of Choices," the fox explains. "One path will lead you to great wisdom, the other to a thrilling adventure. You must decide which path to take."`,
+                choices: {
+                    "Enter the left path": "wisdomPath",
+                    "Enter the right path": "adventurePath"
+                }
             },
-            dark_cave: {
-                text: "You step into the dark cave, your footsteps echoing. Suddenly, glowing eyes appear in the darkness! A deep voice rumbles, 'Who dares enter my domain?' You realize it's a talking dragon guarding a treasure chest. The dragon offers you a choice: answer a riddle correctly to pass, or turn back. What will you do?",
-                choices: [
-                    { text: "Attempt to solve the dragon’s riddle.", next: "dragon_riddle" },
-                    { text: "Turn back and choose another path.", next: "start" }
-                ]
+            castlePath: {
+                text: `You make your way toward the floating castle, stepping carefully over the winding stone path. As you approach, you see a shimmering bridge leading up to the castle gates. Just as you reach the entrance, a booming voice echoes from above.<br><br>
+                "Only those who solve the riddle may enter!" the voice declares. A scroll appears in front of you, displaying a puzzle: "I have keys but open no locks. I have space but no room. You can enter but not go outside. What am I?"`,
+                choices: {
+                    "Answer 'A keyboard'": "correctRiddle",
+                    "Answer 'A treasure chest'": "wrongRiddle"
+                }
             },
-            bridge_crossing: {
-                text: "As you step onto the bridge, the wood creaks beneath your feet. Halfway across, you see a troll blocking your way. 'To pass, you must trade me something valuable,' the troll demands. You search your pockets and find a shiny marble and a golden key. Which will you offer?",
-                choices: [
-                    { text: "Give the troll the shiny marble.", next: "marble_trade" },
-                    { text: "Give the troll the golden key.", next: "key_trade" }
-                ]
+            wisdomPath: {
+                text: `Stepping onto the left path, you feel a warmth surround you. Suddenly, you find yourself in a grand library filled with floating books. A wise old owl greets you, offering a book of infinite knowledge. As you read, you begin to understand secrets of the universe, but you also realize you may never leave this place...`,
+                choices: {
+                    "Stay and learn forever": "stayLibrary",
+                    "Search for a way home": "searchHome"
+                }
             },
-            boat_ride: {
-                text: "You untie the boat and push off from the shore. As you drift down the river, the water begins to glow, revealing hidden symbols beneath the surface. You feel a strange energy flowing through you. Ahead, you see two paths: one leading to a waterfall and another to a small island. Where will you go?",
-                choices: [
-                    { text: "Head toward the waterfall.", next: "waterfall_path" },
-                    { text: "Steer towards the island.", next: "island_path" }
-                ]
-            },
-            dragon_riddle: {
-                text: "The dragon's eyes gleam as it speaks: 'I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?' You think carefully about your answer.",
-                choices: [
-                    { text: "A shadow.", next: "wrong_answer" },
-                    { text: "An echo.", next: "correct_answer" }
-                ]
-            },
-            correct_answer: {
-                text: "The dragon nods approvingly. 'You are wise! You may take one item from my treasure chest.' Inside, you find a glowing gem and an ancient scroll. Which will you take?",
-                choices: [
-                    { text: "Take the glowing gem.", next: "gem_path" },
-                    { text: "Take the ancient scroll.", next: "scroll_path" }
-                ]
-            },
-            wrong_answer: {
-                text: "The dragon roars and shakes its head. 'Incorrect! You must leave at once.' You run back to the entrance of the cave, deciding to try another path.",
-                choices: [
-                    { text: "Go back to the start.", next: "start" } ]
-            },
-            marble_trade: {
-                text: "The troll examines the marble and shakes its head. 'This is not enough!' it growls. You must turn back and choose another way forward.",
-                choices: [
-                    { text: "Go back to the start.", next: "start" } ]
-            },
-            key_trade: {
-                text: "The troll takes the golden key and grins. 'A fine trade! You may pass.' Beyond the bridge, you see a magnificent castle shimmering in the distance. What will you do?",
-                choices: [
-                    { text: "Approach the castle.", next: "castle_path" } ]
+            adventurePath: {
+                text: `The right path leads you to a roaring river. A boat awaits, but it has no oars. You spot a glowing stone nearby. As you pick it up, the boat begins to move on its own, guiding you through a maze of waterfalls and tunnels. Suddenly, a sea serpent emerges, blocking your way!`,
+                choices: {
+                    "Use the glowing stone to calm the serpent": "calmSerpent",
+                    "Try to paddle away": "paddleAway"
+                }
             }
         };
 
-        function displayStory(section) {
-            const storyDiv = document.getElementById("story");
-            storyDiv.innerHTML = "<p>" + story[section].text + "</p>";
-            story[section].choices.forEach(choice => {
-                const choiceElement = document.createElement("div");
-                choiceElement.className = "choice";
-                choiceElement.innerText = choice.text;
-                choiceElement.onclick = () => displayStory(choice.next);
-                storyDiv.appendChild(choiceElement);
-            });
+        function loadStory(part) {
+            const story = storyData[part];
+            document.getElementById("story").innerHTML = `<p>${story.text}</p>` +
+                Object.keys(story.choices).map(choice => `<p class='choice' onclick='loadStory("${story.choices[choice]}")'>${choice}</p>`).join('');
         }
 
-        displayStory("start");
+        loadStory("start");
     </script>
 </body>
 </html>
