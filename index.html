@@ -52,6 +52,48 @@
                     "Use the glowing stone to calm the serpent": "calmSerpent",
                     "Try to paddle away": "paddleAway"
                 }
+            },
+            correctRiddle: {
+                text: `The castle gates swing open, revealing a grand hall filled with shimmering light. The King of Knowledge welcomes you, offering you a magical book that allows you to travel between worlds. You have gained great wisdom and can now return home with the book in hand.`,
+                choices: {
+                    "Return home": "ending"
+                }
+            },
+            wrongRiddle: {
+                text: `The castle shakes, and the ground beneath you crumbles! You fall into an endless void, realizing too late that answering incorrectly was a trap.`,
+                choices: {
+                    "Game Over - Restart?": "start"
+                }
+            },
+            stayLibrary: {
+                text: `You spend eternity reading the books of wisdom, gaining infinite knowledge but never returning home. Your adventure ends in the endless halls of knowledge.`,
+                choices: {
+                    "Game Over - Restart?": "start"
+                }
+            },
+            searchHome: {
+                text: `You find a hidden book titled "The Way Back." As you read it aloud, a portal opens, returning you to the school library with newfound wisdom.`,
+                choices: {
+                    "Return to reality": "ending"
+                }
+            },
+            calmSerpent: {
+                text: `The serpent's eyes glow softly as it nods in respect. It allows you to pass, guiding you to a hidden island where a treasure chest awaits. Inside, you find a key that transports you safely back home.`,
+                choices: {
+                    "Return home": "ending"
+                }
+            },
+            paddleAway: {
+                text: `You struggle against the waves, but the serpent is too fast. With one mighty lunge, it swallows you whole.`,
+                choices: {
+                    "Game Over - Restart?": "start"
+                }
+            },
+            ending: {
+                text: `You blink, finding yourself back in the school library, the golden book still in your hands. No time has passed, but you know the adventure was real. With a smile, you close the book, wondering if you'll ever open it again...`,
+                choices: {
+                    "Play Again": "start"
+                }
             }
         };
 
